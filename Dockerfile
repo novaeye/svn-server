@@ -1,14 +1,15 @@
-FROM smebberson/alpine-apache:latest
+FROM alpine:latest
+MAINTAINER novaeye <novaeye@qq.com>
 
-MAINTAINER novaeye <fcoffee@gmail.com>
+ENV SVN_URI_PREFIX=svn
 
-RUN apk add --update subversion apache2-webdav mod_dav_svn && rm -rf /var/cache/apk/*
+RUN apk add --update apache2 apache2-utils apache2-webdav mod_dav_svn subversion && \
+    rm /var/cache/apk/* && \
+    mkdir /run/apache2 && \
+    mkdir -p /data/svn && \
+    rm -rf /etc/apache2/conf.d/subversion.conf
 
 COPY subversion.conf /etc/apache2/conf.d/subversion.conf.template
-
-RUN rm -rf /etc/services.d/apache/run
-
-RUN mkdir -p /data/svn
 
 VOLUME /data/svn
 
@@ -16,6 +17,4 @@ ADD startup.sh /startup.sh
 
 EXPOSE 80
 
-ENV SVN_URI_PREFIX=svn
-
-CMD /bin/sh /startup.sh
+CMD ["/bin/sh", "/startup.sh"]
