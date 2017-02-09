@@ -7,5 +7,5 @@ cp -r /etc/apache2/conf.d/subversion.conf.template /etc/apache2/conf.d/subversio
 sed -i "s/__SVN_URI_PREFIX__/$SVN_URI_PREFIX/g" /etc/apache2/conf.d/subversion.conf
 
 # start apache
-/usr/sbin/apachectl -DFOREGROUND
+httpd -D FOREGROUND
 
