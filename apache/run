@@ -1,0 +1,14 @@
+#!/usr/bin/with-contenv sh
+
+# From https://github.com/smebberson/docker-alpine/tree/master/alpine-apache
+
+rm -rf /run/apache2
+mkdir -p /run/apache2
+
+chown -R apache.apache /home/svn/repos
+
+rm -rf /etc/apache2/conf.d/dav_svn.conf
+cp -r /etc/apache2/conf.d/dav_svn.conf.template /etc/apache2/conf.d/dav_svn.conf
+sed -i "s/__SVN_URI_PREFIX__/$SVN_URI_PREFIX/g" /etc/apache2/conf.d/dav_svn.conf
+
+exec /usr/sbin/apachectl -DFOREGROUND;
