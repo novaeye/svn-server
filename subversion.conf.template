@@ -1,6 +1,14 @@
 LoadModule dav_svn_module /usr/lib/apache2/mod_dav_svn.so
 LoadModule authz_svn_module /usr/lib/apache2/mod_authz_svn.so
 
+<IfModule rewrite_module>
+     RewriteOptions AllowNoSlash
+
+     RewriteCond %{HTTP:X-Forwarded-Proto} =https
+     RewriteCond %{LA-U:REQUEST_FILENAME} -d
+     RewriteRule ^/(.*[^/])$ https://%{HTTP_HOST}/$1/ [R=301,L,QSA]
+</IfModule>
+
 <Location /__SVN_URI_PREFIX__>
      DAV svn
      SVNParentPath /home/svn/repos
