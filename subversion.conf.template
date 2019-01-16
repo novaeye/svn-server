@@ -11,6 +11,7 @@ LoadModule authz_svn_module /usr/lib/apache2/mod_authz_svn.so
 
 <Location /__SVN_URI_PREFIX__>
      DAV svn
+     SVNUseUTF8 On
      SVNParentPath /home/svn/repos
      SVNAllowBulkUpdates prefer
      AuthType Basic
