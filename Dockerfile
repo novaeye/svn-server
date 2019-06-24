@@ -8,7 +8,7 @@ ENV SVN_URI_PREFIX=svn
 	# Installing utilities for SVNADMIN frontend
 	# Create required folders
 	# Create the authentication file for http access
-RUN apk add --no-cache apache2 apache2-ctl apache2-utils apache2-ldap apache2-webdav mod_dav_svn subversion &&\
+RUN apk add --no-cache apache2 apache2-utils apache2-ldap apache2-webdav mod_dav_svn subversion &&\
 	mkdir -p /run/apache2/ &&\
 	mkdir /home/svn/ &&\
 	mkdir -p /var/log/apache2 &&\
